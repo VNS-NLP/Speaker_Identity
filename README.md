@@ -6,4 +6,4 @@ pip install requiremts.txt
 
 python app.py
 
-access to [!link:http://localhost:3000/docs]
+access to !link:http://localhost:3000/docs
