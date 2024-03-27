@@ -1,0 +1,8 @@
+torch
+torchvision
+libsndfile1
+python-speech-features
+fastapi
+uvicorn
+librosa
+python-speech-features==0.6
