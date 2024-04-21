@@ -39,11 +39,12 @@ class FBanksCrossEntropyDataset(Dataset):
 
 
 
-# if __name__ == '__main__':
-#     use_cuda = False
-#     kwargs = {'num_workers': multiprocessing.cpu_count(),
-#               'pin_memory': True} if use_cuda else {}
+if __name__ == '__main__':
+    use_cuda = False
+    kwargs = {'num_workers': multiprocessing.cpu_count(),
+              'pin_memory': True} if use_cuda else {}
 
-#     data_test = FBanksCrossEntropyDataset('fbanks-test')
-#     test_loader = DataLoader(data_test, batch_size=1, shuffle=True, **kwargs)
-#     print(next(iter(test_loader))[0].shape)
+    data_test = FBanksCrossEntropyDataset('fbanks-test')
+    print(data_test.label_to_index_range)
+    test_loader = DataLoader(data_test, batch_size=1, shuffle=True, **kwargs)
+    print(next(iter(test_loader))[0].shape)
