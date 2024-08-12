@@ -70,6 +70,7 @@ async def train_model(train_dataset_path:str=Form(...),test_dataset_path:str=For
     last_epoch, max_accuracy, train_losses, test_losses, train_accuracies, test_accuracies = restore_objects(model_path, (0, 0, [], [], [], []))
     start = last_epoch + 1 if max_accuracy > 0 else 0
 
+    models_path = []
     optimizer = optim.Adam(model.parameters(), lr=0.0005)
     for epoch in range(start,2):
         train_loss, train_accuracy = train(model, device, train_loader, optimizer, epoch, 500)
@@ -83,7 +84,8 @@ async def train_model(train_dataset_path:str=Form(...),test_dataset_path:str=For
         test_accuracies.append(test_accuracy)
         if test_accuracy > max_accuracy:
             max_accuracy = test_accuracy
-            save_model(model, epoch, model_path)
+            model_path = save_model(model, epoch, model_path)
+            models_path.append(model_path)
             save_objects((epoch, max_accuracy, train_losses, test_losses, train_accuracies, test_accuracies), epoch, model_path)
             print('saved epoch: {} as checkpoint'.format(epoch))
     return {
@@ -92,7 +94,8 @@ async def train_model(train_dataset_path:str=Form(...),test_dataset_path:str=For
         'test accuracies': str(test_accuracies),
         'train losses':str(train_losses),
         'test losses':str(test_losses),
-        'max accurancy': str(max_accuracy)
+        'max accurancy': str(max_accuracy),
+        'models path': models_path
     }
 
 
@@ -180,6 +183,7 @@ async def train_model_classification(train_dataset_path:str=Form(...),test_datas
     last_epoch, max_accuracy, train_losses, test_losses, train_accuracies, test_accuracies = restore_objects(model_path, (0, 0, [], [], [], []))
     start = last_epoch + 1 if max_accuracy > 0 else 0
 
+    models_path = []
     optimizer = optim.Adam(model.parameters(), lr)
     for epoch in range(start,epochs):
         train_loss, train_accuracy = train_classification(model, device, train_loader, optimizer, epoch, 500)
@@ -193,7 +197,8 @@ async def train_model_classification(train_dataset_path:str=Form(...),test_datas
         test_accuracies.append(test_accuracy)
         if test_accuracy > max_accuracy:
             max_accuracy = test_accuracy
-            save_model(model, epoch, model_path)
+            model_path = save_model(model, epoch, model_path)
+            models_path.append(model_path)
             save_objects((epoch, max_accuracy, train_losses, test_losses, train_accuracies, test_accuracies), epoch, model_path)
             print('saved epoch: {} as checkpoint'.format(epoch))
     return {
@@ -202,7 +207,8 @@ async def train_model_classification(train_dataset_path:str=Form(...),test_datas
         'test accuracies': str(test_accuracies),
         'train losses':str(train_losses),
         'test losses':str(test_losses),
-        'max accurancy': str(max_accuracy)
+        'max accurancy': str(max_accuracy),
+        'models path': models_path
     }
 
 
@@ -276,8 +282,6 @@ def load_data_speaker(data_dir = 'data_dir'):
     else:
         return "folder do not exist"
            
-
-
 
 @app.post('/inferences_search_speaker')
 async def inferences_searh(file_speaker:UploadFile=File(...),k:int=Form(...)):

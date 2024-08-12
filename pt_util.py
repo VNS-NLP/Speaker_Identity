@@ -17,10 +17,12 @@ def assert_dir_exits(path):
 
 def save_model(model, epoch, out_path):
     assert_dir_exits(out_path)
+    model_file = out_path + str(epoch) + '.pth'
     chk_files = glob.glob(out_path + '*.pth')
     _remove_files(chk_files)
-    torch.save(model.state_dict(), out_path + str(epoch) + '.pth')
+    torch.save(model.state_dict(), model_file)
     print('model saved for epoch: {}'.format(epoch))
+    return model_file
 
 
 def save_objects(obj, epoch, out_path):
