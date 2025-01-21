@@ -7,7 +7,7 @@ Tài liệu này cung cấp hướng dẫn chi tiết cách chạy API cho nhậ
 ## **Yêu cầu**
 
 ### **Thư viện cần thiết**
-Đảm bảo bạn đã cài đặt các thư viện Python sau:
+Đảm bảo  đã cài đặt các thư viện Python sau:
 
 - `torch`
 - `fastapi`
@@ -162,7 +162,7 @@ curl -X POST http://127.0.0.1:3000/inferences \
 ### **Lưu ý**
 - Đảm bảo tất cả các thư mục cần thiết đã tồn tại trước khi chạy API.
 - Thư mục `saved_models_cross_entropy` được sử dụng để lưu và tải checkpoint của mô hình.
-- Điều chỉnh đường dẫn phù hợp với môi trường của bạn.
+- Điều chỉnh đường dẫn phù hợp với môi trường của .
 
 ---
 
