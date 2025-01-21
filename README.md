@@ -55,7 +55,7 @@ API sẽ hoạt động tại địa chỉ `http://127.0.0.1:3000`.
 
 #### **Tham số**:
 - `test_dataset_path` (str): Đường dẫn tới tập dữ liệu kiểm tra.
-- `model_name` (str): Tên mô hình cần xác thực (ví dụ: `fbanks net`).
+- `model_name` (str): Tên mô hình cần xác thực (mặc định: `fbanks net`).
 - `use_cuda` (bool): Sử dụng GPU nếu có (`true` hoặc `false`).
 - `batch_size` (int): Kích thước batch khi kiểm tra.
 
@@ -103,13 +103,13 @@ curl -X POST http://127.0.0.1:3000/train_model \
 
 ---
 
-### **3. Thêm Người Dùng**
+### **3. Thêm Người Nói**
 **Endpoint**: `/add_speaker`  
 **Phương thức**: POST  
 
 #### **Tham số**:
-- `file_speaker` (file): File âm thanh của người dùng.
-- `speaker_name` (str): Tên của người dùng.
+- `file_speaker` (file): File âm thanh của người nói.
+- `speaker_name` (str): Tên của người nói.
 
 #### **Kết quả trả về**:
 - Xác nhận file âm thanh được lưu và embeddings được tạo.
@@ -123,12 +123,12 @@ curl -X POST http://127.0.0.1:3000/add_speaker \
 
 ---
 
-### **4. Hiển thị Tất cả Người Dùng**
+### **4. Hiển thị Tất cả Người Mói**
 **Endpoint**: `/all_speaker`  
 **Phương thức**: GET  
 
 #### **Kết quả trả về**:
-- Trả về danh sách tất cả người dùng đã được lưu.
+- Trả về danh sách tất cả người nói đã được lưu.
 
 #### **Ví dụ**:
 ```bash
@@ -147,7 +147,7 @@ curl -X GET http://127.0.0.1:3000/all_speaker
 - `THRESHOLD` (float): Ngưỡng để xác định độ tương đồng.
 
 #### **Kết quả trả về**:
-- Thông báo liệu file âm thanh có khớp với người dùng đã lưu hay không.
+- Thông báo liệu file âm thanh có khớp với người nói đã lưu hay không.
 
 #### **Ví dụ**:
 ```bash
@@ -165,8 +165,6 @@ curl -X POST http://127.0.0.1:3000/inferences \
 - Điều chỉnh đường dẫn phù hợp với môi trường của .
 
 ---
-
-
 
 
 access to !link:http://localhost:3000/docs
